@@ -1,4 +1,3 @@
-from email import message
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth, messages
 from django.http import HttpResponseRedirect
@@ -25,7 +24,7 @@ def login(request):
 
                 return HttpResponseRedirect(reverse('main:index'))
     else:
-            form = UserLoginForm()
+        form = UserLoginForm()
 
     context = {
         'title': 'Home - Авторизация',
@@ -43,7 +42,7 @@ def registration(request):
             messages.success(request, f"{user.username}, Вы успешно зарегистрированы и вошли в аккаунт")
             return HttpResponseRedirect(reverse('main:index'))
     else:
-            form = UserRegistrationForm()
+        form = UserRegistrationForm()
     context = {
         'title': 'Home - Регистрация',
         'form': form
@@ -65,6 +64,9 @@ def profile(request):
         'form': form
     }
     return render(request, 'users/profile.html', context) 
+
+def users_cart(request):
+    return render(request, 'users/user_cart.html')
 
 @login_required
 def logout(request):

@@ -1,4 +1,3 @@
-from tkinter.font import names
 from django.urls import path
 from goods import views
 
