@@ -5,7 +5,6 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 
 from carts.models import Cart
-from users.models import User
 from users.forms import ProfileForm, UserLoginForm, UserRegistrationForm
 
 
