@@ -7,6 +7,7 @@ import sys
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'app.settings')
+    sys.path.append('/Users/user/Documents/Project')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

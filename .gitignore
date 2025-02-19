@@ -1,6 +1,7 @@
 venv/
 .pylintre
 __pycache__/
+cache/
 
 .vscode
 .idea
