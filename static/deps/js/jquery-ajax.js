@@ -93,7 +93,7 @@ $(document).ready(function () {
 
     // Ловим собыитие клика по кнопке удалить товар из корзины
     $(document).on("click", ".remove-from-cart", function (e) {
-        debugger; // for debugging
+        //debugger; // for debugging
         // Блокируем его базовое действие
         e.preventDefault();
 

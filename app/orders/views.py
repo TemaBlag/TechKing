@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.views.generic import FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from orders.utils import format_number
 from orders.models import Order, OrderItem
 from carts.models import Cart
 from orders.forms import CreateOrderForm
@@ -22,6 +23,17 @@ class CreateOrderView(LoginRequiredMixin, FormView):
         initial['first_name'] = self.request.user.first_name
         initial['last_name'] = self.request.user.last_name
         return initial
+    
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)
+        form_data = self.request.session.pop("order_form_data", None)
+        if form_data:
+            for key, value in form_data.items():
+                if key == 'phone_number':
+                    form.fields[key].initial = format_number(value)
+                else:
+                    form.fields[key].initial = value 
+        return form
 
     def form_valid(self, form):
         try:
@@ -68,17 +80,18 @@ class CreateOrderView(LoginRequiredMixin, FormView):
                 messages.success(self.request, "Заказ оформлен!")
                 return redirect("user:profile")
         except ValidationError as e:
-            messages.success(self.request, str(e))
+            self.request.session["order_form_data"] = form.cleaned_data
+            messages.warning(self.request, str(*e))
             return redirect("orders:create_order")
         
     def form_invalid(self, form):
-        messages.error(self.request, 'Заполните все обязательные поля!')
-        return redirect('orders"create_order')
+        messages.warning(self.request, 'Заполните все обязательные поля!')
+        return redirect('orders:create_order')
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = "Home - `Оформление заказа"
-        context['title'] = True
+        context['order'] = True
         return context
 
 

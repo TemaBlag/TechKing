@@ -55,37 +55,40 @@
                             <label for="delivery" class="form-label">Способ доставки: </label>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="requires_delivery"
-                                    id="id_requires_delivery" value="1" checked>
-                                <label class="form-check-label" for="id_requires_delivery">Нужна
-                                    доставка</label>
+                                    id="id_requires_delivery" value="1" 
+                                    {% if form.requires_delivery.value == '1' or form.requires_delivery.value == None %}checked{% endif %}>
+                                <label class="form-check-label" for="id_requires_delivery">Нужна доставка</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="requires_delivery"
-                                    id="id_requires_delivery" value="0">
+                                    id="id_requires_delivery" value="0" {% if form.requires_delivery.value == '0' %}checked{% endif %}>
                                 <label class="form-check-label" for="id_requires_delivery">Самовывоз</label>
                             </div>
                         </div>
+                        {% if form.requires_delivery.value == '1' or form.requires_delivery.value == None%}
                         <div class="mb-3" id="deliveryAddressField">
                             <label for="id_delivery_address" class="form-label">Адрес
                                 доставки*:</label>
-                            <textarea class="form-control" id="id_delivery_address"
-                            value="{% if form.delivery_address.value %}{{ form.delivery_address.value }}{% endif %}"
-                                name="delivery_address" rows="2"></textarea>
+                            <textarea class="form-control" id="id_delivery_address"   
+                            name="delivery_address" rows="2">{% if form.delivery_address.value %}{{ form.delivery_address.value }}{% endif %}</textarea>
                                 {% if form.delivery_address.errors %}
                                 <div class="alert alert-danger alert-dismissible fade show">{{ form.delivery_address.errors }}</div>
                                 {% endif %}
-                        </div>
+                            </div>
+                        {% endif %}
                         <div class="col-md-12 mb-3">
                             <label class="form-label">Способ оплаты: </label>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="payment_on_get"
-                                    id="id_payment_on_get" value="0" checked>
+                                    id="id_payment_on_get" value="0" 
+                                    {% if form.payment_on_get.value == '0'%}checked{% endif %}>
                                 <label class="form-check-label" for="id_payment_on_get">Оплата
                                     картой</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="payment_on_get"
-                                    id="id_payment_on_get" value="1">
+                                    id="id_payment_on_get" value="1"
+                                    {% if form.payment_on_get.value == '1' or form.payment_on_get.value == None %}checked{% endif %}>
                                 <label class="form-check-label" for="id_payment_on_get">Наличными/картой
                                     при плучении</label>
                                     {% if form.payment_on_get.errors %}
