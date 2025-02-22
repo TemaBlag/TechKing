@@ -52,7 +52,7 @@
         </div>
 
         {% if request.GET.q %}
-            <h3 class="mt-4">Результаты поиска по запросу {{ request.GET.q }}</h3>
+            <h3 class="mt-4">Результаты поиска по запросу {{ request.GET.q }}:</h3>
         {% if not goods %}
             <h2 class="mt-4">По запросу ничего не найдено</h2>
         {% endif %}

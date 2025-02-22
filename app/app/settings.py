@@ -30,7 +30,7 @@ MESSAGE_TAGS = {
 SECRET_KEY = 'django-insecure-0*kgg&y+e)yc=@wh2d4dk05=o7e)k=inu+1vn4za0b4w=q0yxl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -146,9 +146,16 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [
+if DEBUG:
+    STATICFILES_DIRS = [
     BASE_DIR / 'static'
     ]
+else:
+    STATIC_ROOT = BASE_DIR / 'static'
+
+# STATICFILES_DIRS = [
+#     BASE_DIR / 'static'
+#     ]
 
 MEDIA_URL = 'media/'
 

@@ -1,9 +1,12 @@
 from django.http import Http404
+from django.shortcuts import render
 from django.views.generic import DetailView, ListView
 
 from goods.utils import q_search
-from goods.models import Categories, Products
+from goods.models import Products
 
+def custom_404_view(request, exception):
+    return render(request, "404.html", {"message": str(exception)}, status=404)
 
 class CatalogView(ListView):
     model = Products
@@ -24,6 +27,8 @@ class CatalogView(ListView):
             goods = super().get_queryset()
         elif query:
             goods = q_search(query)
+            if not goods.exists():
+                raise Http404("К сожалению, у нас нет такого товара")
         else:
             goods = super().get_queryset().filter(category__slug=category_slug)
             if not goods.exists():
