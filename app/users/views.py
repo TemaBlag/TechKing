@@ -42,19 +42,27 @@ class UserLoginView(LoginView):
                 Cart.objects.filter(session_key=session_key).update(user=user)
 
                 messages.success(self.request, f"{user.username}, Вы вошли в аккаунт")
-
                 return HttpResponseRedirect(self.get_success_url())
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Home - Авторизация'
+        next_url = self.request.POST.get('next', self.request.GET.get('next', ''))
+        if next_url:
+            context['next'] = next_url
         return context
 
 
 class UserRegistrationView(CreateView):
     template_name = 'users/registration.html'
     form_class = UserRegistrationForm
-    success_url = reverse_lazy('user:profile')
+    # success_url = reverse_lazy('user:profile')
+
+    def get_success_url(self):
+        redirect_page = self.request.POST.get('next', None)
+        if redirect_page and redirect_page != reverse('user:logout'):
+            return redirect_page
+        return reverse_lazy('user:profile')
 
     def form_valid(self, form):
         session_key = self.request.session.session_key
@@ -68,12 +76,15 @@ class UserRegistrationView(CreateView):
             Cart.objects.filter(session_key=session_key).update(user=user)
 
         messages.success(self.request, f"{user.username}, Вы успешно зарегистрированы и вошли в аккаунт")
-        return HttpResponseRedirect(self.success_url)
+        return HttpResponseRedirect(self.get_success_url())
 
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title']= 'Home - Регистрация'
+        next_url = self.request.POST.get('next', self.request.GET.get('next', ''))
+        if next_url:
+            context['next'] = next_url  
         return context
     
 class UserProfileView(LoginRequiredMixin, CacheMixin, UpdateView):

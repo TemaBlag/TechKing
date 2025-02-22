@@ -14,7 +14,7 @@
         </div>
     </div>
     <!-- Детали заказа -->
-    <div class="container">
+    <div class="container" id="order-details" style="display: block;">
         <h3 class="text-center">Детали заказа</h3>
         <div class="card mb-3">
             <div class="card-body">
@@ -97,7 +97,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-dark">Оформить заказ</button>
+                    <button type="submit" class="btn btn-dark" {% if not carts %}disabled{% endif %}>Оформить заказ</button>
                 </form>
             </div>
         </div>

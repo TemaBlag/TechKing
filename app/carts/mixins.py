@@ -23,8 +23,10 @@ class CartMixin():
 
         return Cart.objects.filter(**query_kwargs).first()
     
-    def render_cart(self, request):
-        user_cart = get_user_carts(request)
+    def render_cart(self, request, user_cart=None):
+        if user_cart == None:
+            user_cart = get_user_carts(request)
+
         context = {"carts": user_cart}
 
         # if referer page is create_order add key orders: True to context

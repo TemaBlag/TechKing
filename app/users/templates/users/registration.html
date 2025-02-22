@@ -13,6 +13,9 @@
                 <h2 class="text-center mb-4">Регистрация</h2>
                 <form action="{% url "user:registration" %}" method="post">
                     {% csrf_token %}
+                    {% if next %}
+                        <input type="hidden" name="next" value="{{ next }}">
+                    {% endif %}
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="id_first_name" class="form-label">Имя*</label>

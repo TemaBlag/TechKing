@@ -57,15 +57,25 @@ class CartRemoveView(CartMixin, View):
     def post(self, request):
         cart_id = request.POST.get("cart_id")
 
+
         cart = self.get_cart(request, cart_id=cart_id)
         quantity = cart.quantity
         cart.delete()
 
-        response_data= {
-            "message": "Товар удалён из корзины",
-            "cart_items_html": self.render_cart(request),
-            "quantity_deleted": quantity,
-        }
+        user_cart = get_user_carts(request)
+        if user_cart:
+            response_data= {
+                "message": "Товар удалён из корзины",
+                "cart_items_html": self.render_cart(request, user_cart),
+                "quantity_deleted": quantity,
+            }
+        else:
+            response_data= {
+                "cart_items_html": self.render_cart(request, user_cart),
+                "quantity_deleted": quantity,
+                "empty": True,
+            }
+
 
         return JsonResponse(response_data)
      
