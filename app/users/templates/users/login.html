@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% load socialaccount %}
+{% comment %} {% load socialaccount %} {% endcomment %}
 
 {% block modal_cart %}
 {% include "includes/cart_button.html" %}
@@ -14,9 +14,6 @@
                 <h2 class="text-center mb-4">Авторизация</h2>
                 <form action="{% url "user:login" %}" method="post">
                     {% csrf_token %}
-                    {% comment %} {% if request.GET.next %}
-                        <input type="hidden" name='next' value={{ request.GET.next }}>
-                    {% endif %} {% endcomment %}
                     {% if next %}
                         <input type="hidden" name="next" value="{{ next }}">
                     {% endif %}
@@ -42,7 +39,9 @@
                 <hr>
                 <div class="text-center">
                     <p>Или авторизуйтесь через:</p>
-                    <a href="{% provider_login_url 'google' %}?next=/" class="btn btn-dark">
+                    <a href="{% url 'user:social:begin' 'google-oauth2' %}?next={{ request.GET.next }}" class="btn btn-dark">
+                    {% comment %} <a href="{% url 'user:google_login' %}" class="btn btn-dark"> {% endcomment %}
+                    {% comment %} <a href="{% provider_login_url 'google' %}?next=/" class="btn btn-dark"> {% endcomment %}
                         <img class="mx-1" src="{% static "deps/icons/google.svg" %}" alt="Catalog Icon" width="16" height="16">
                         Google
                     </a>

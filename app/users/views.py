@@ -3,18 +3,31 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.cache import cache
 from django.contrib.auth.views import LogoutView
 from django.db.models import Prefetch
+from allauth.socialaccount.providers import registry
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.views import LoginView
 from django.views.generic import CreateView, TemplateView, UpdateView
 
-
 from common.mixins import CacheMixin
 
 from orders.models import Order, OrderItem
 from carts.models import Cart
 from users.forms import ProfileForm, UserLoginForm, UserRegistrationForm
+
+# rom allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+
+# class GoogleLoginView(TemplateView):
+#     def get(self, request, *args, **kwargs):
+#         # google_adapter = GoogleOAuth2Adapter(request)
+#         # login_url = google_adapter.get_authorization_url(request)
+#         google_provider = registry.by_id('google')
+#         adapter = google_provider.get_adapter()
+        
+#         # Retrieve the Google OAuth2 URL
+#         login_url = adapter.get_auth_url(request)
+#         return redirect(login_url)
 
 class UserLoginView(LoginView):
     template_name = 'users/login.html'

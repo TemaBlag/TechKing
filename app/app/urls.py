@@ -33,7 +33,7 @@ urlpatterns = [
     path('user/', include('users.urls', namespace='user')),
     path('cart/', include('carts.urls', namespace='cart')),
     path('orders/', include('orders.urls', namespace='orders')),
-    path('accounts/', include('allauth.urls')),
+    # path('accounts/', include('allauth.urls')), # v1
 ]
 
 if settings.DEBUG:
