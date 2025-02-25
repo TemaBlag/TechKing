@@ -32,62 +32,12 @@ class CreateOrderForm(forms.Form):
 
         return data
 
+    def clean_delivery_address(self):
 
+        requires_delivery = int(self.cleaned_data['requires_delivery'])
+        delivery_address = self.cleaned_data.get('delivery_address')
 
+        if requires_delivery and not delivery_address:
+            raise forms.ValidationError("Введите адрес доставки")
 
-    # first_name = forms.CharField(
-    #     widget=forms.TextInput(
-    #         attrs={
-    #             "class": "form-control",
-    #             "placeholder": "Введите ваше имя",
-    #         }
-    #     )
-    # )
-
-    # last_name = forms.CharField(
-    #     widget=forms.Textarea(
-    #         attrs={
-    #             "class": "form-control",
-    #             "placeholder": "Введите вашу фамилию",
-    #         }
-    #     )
-    # )
-
-    # phone_number = forms.CharField(
-    #     widget=forms.TextInput(
-    #         attrs={
-    #             "class": "form-control",
-    #             "placeholder": "Номер телефона",
-    #         }
-    #     )
-    # )
-
-    # requires_delivery = forms.ChoiceField(
-    #     widget=forms.RadioSelect(),
-    #     choices=[
-    #         ('0', 'False'),
-    #         ('1', 'True'),
-    #     ],
-    #     initial=0,
-    # )
-
-    # delivery_adress = forms.CharField(
-    #     widget=forms.Textarea(
-    #         attrs={
-    #             "class": "form-control",
-    #             'id': "delivery-adress",
-    #             "rows": 2,
-    #             "placeholder": "Введите адрес доставки",
-    #         }
-    #     ),
-    #     required=False,
-    # )
-
-    # payment_on_get = forms.ChoiceField(
-    #     widget=forms.RadioSelect(),
-    #     choices=[
-    #         ('0', 'False'),
-    #         ('1', 'True'),
-    #     ],
-    #     initial='card',
-    # )
+        return delivery_address

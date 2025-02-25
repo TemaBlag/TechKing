@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.db import transaction
 from django.forms import ValidationError
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -24,9 +25,10 @@ class CreateOrderView(LoginRequiredMixin, FormView):
     
     def get_form(self, *args, **kwargs):
         form = super().get_form(*args, **kwargs)
-        form_data = self.request.session.pop("order_form_data", None)
+        form_data = self.request.session.get("order_form_data", None)
         if form_data:
             for key, value in form_data.items():
+                print(key, value)
                 if key == 'phone_number':
                     form.fields[key].initial = format_number(value)
                 else:
@@ -83,7 +85,11 @@ class CreateOrderView(LoginRequiredMixin, FormView):
             return redirect("orders:create_order")
         
     def form_invalid(self, form):
-        messages.warning(self.request, 'Заполните все обязательные поля!')
+        if 'delivery_address' in form.errors:
+            messages.warning(self.request, form.errors['delivery_address'])
+        else: 
+            messages.warning(self.request, 'Заполните все обязательные поля!')
+        self.request.session["order_form_data"] = form.cleaned_data
         return redirect('orders:create_order')
     
     def get_context_data(self, **kwargs):
