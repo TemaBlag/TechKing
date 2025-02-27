@@ -4,6 +4,11 @@ TechKing — это онлайн платформа для продажи эле
 
 Полная презентация проекта - [TechKing](https://temablag.github.io/TechKing/TechKing.pdf)
 
+![index](https://res.cloudinary.com/daaivmxff/image/upload/v1740647231/index_bva7cv.jpg)
+<div align="center">
+  Каталог магазина техники TechKing
+</div>
+
 ## Особенности проекта
 
 - **Быстрый и удобный интерфейс:** Разработан с учетом потребностей пользователя, предоставляя интуитивно понятное взаимодействие с сайтом.
