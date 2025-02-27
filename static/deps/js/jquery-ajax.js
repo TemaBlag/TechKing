@@ -198,8 +198,8 @@ $(document).ready(function () {
         let phoneInput = $('#id_phone_number');
         if (phoneInput.length) {
             phoneInput.on('input', function(e) {
-                var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-                e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+                var x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,3})(\d{0,2})(\d{0,2})/);
+                e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '') + (x[4] ? '-' + x[4] : '');
             });
         } 
     });
@@ -208,7 +208,7 @@ $(document).ready(function () {
     $('#create_order_form').on('submit', function (event) {
         var phoneNumber = $('#id_phone_number').val();
         
-        var regex = /^\(\d{3}\) \d{3}-\d{4}$/;
+        var regex = /^\(\d{2}\) \d{3}-\d{2}-\d{2}$/;
         console.log(phoneNumber);
         if (!regex.test(phoneNumber)) {
             console.log(phoneNumber);

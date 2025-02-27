@@ -42,7 +42,7 @@
                             <label for="id_phone_number" class="form-label">Номер телефона*:</label>
                             <input type="text" class="form-control" id="id_phone_number" name="phone_number"
                             value="{% if form.phone_number.value %}{{ form.phone_number.value }}{% endif %}"
-                                placeholder="(000) 000-0000"
+                                placeholder="(00) 000-00-00"
                                 required>
                                 {% if form.phone_number.errors %}
                                 <div class="alert alert-danger alert-dismissible fade show">{{ form.phone_number.errors }}</div>
