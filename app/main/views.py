@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.views.generic import TemplateView
 
 class IndexView(TemplateView):
@@ -6,10 +5,9 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = 'Home - Главная'
-        context["content"] = 'Магазин мебели HOME'
+        context["title"] = 'Techking - Главная'
+        context["content"] = 'Магазин техники Techking'
         return context
-    
 
 
 class ContactInformationView(TemplateView):
@@ -17,9 +15,7 @@ class ContactInformationView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = 'Home - Контактная иформация'
-        context["content"] = 'Контактная иформация'
-        context["text_on_page"] = 'Что-то там очень интересное'
+        context["title"] = 'Techking - Контактная иформация'
         return context
 
 
@@ -28,9 +24,7 @@ class PaymentDeliveryView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = 'Home - Доставка и оплата'
-        context["content"] = 'Доставка и оплата'
-        context["text_on_page"] = 'Что-то там очень интересное'
+        context["title"] = 'Techking - Доставка и оплата'
         return context
     
 
@@ -39,7 +33,5 @@ class AboutView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = 'Home - О нас'
-        context["content"] = 'О нас'
-        context["text_on_page"] = 'Что-то там очень интересное'
+        context["title"] = 'Techking - О нас'
         return context

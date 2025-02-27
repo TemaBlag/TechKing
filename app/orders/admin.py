@@ -1,10 +1,6 @@
-from zlib import adler32
 from django.contrib import admin
 
 from orders.models import OrderItem, Order
-
-# admin.site.register(Order)
-# admin.site.register(OrderItem)
 
 class OrderItemTabulareAdmin(admin.TabularInline):
     model = OrderItem
@@ -13,7 +9,7 @@ class OrderItemTabulareAdmin(admin.TabularInline):
         "product",
         "name",
     )
-    extra = 0 # количество пустых строк, которые Django добавит для новых элементов заказа.
+    extra = 0 
 
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):

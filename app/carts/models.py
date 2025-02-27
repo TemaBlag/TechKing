@@ -1,7 +1,3 @@
-from statistics import quantiles
-from tabnanny import verbose
-from xml.sax.handler import property_interning_dict
-from django.contrib import sessions
 from django.db import models
 
 from users.models import User

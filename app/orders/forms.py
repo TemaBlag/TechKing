@@ -19,7 +19,7 @@ class CreateOrderForm(forms.Form):
             ('1', 'True'),
             ],
             )
-    # пользовательский валидатор
+
     def clean_phone_number(self):
         data = self.cleaned_data['phone_number']
 

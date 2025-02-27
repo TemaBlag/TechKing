@@ -36,3 +36,88 @@ body {
   border-radius: 15px;
   font-size: 0.7rem;
 }
+
+.section {
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 60px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  margin-bottom: 40px;
+}
+
+.section h2 {
+  font-size: 40px;
+  color: #f8b400;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.section p {
+  font-size: 20px;
+  color: #bbb;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.section-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.section-text {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+.section-text h3 {
+  font-size: 26px;
+  color: #f8b400;
+  margin-bottom: 20px;
+}
+
+.section-text ul {
+  list-style: none;
+  padding: 0;
+}
+
+.section-text ul li {
+  font-size: 18px;
+  margin: 10px 0;
+  padding-left: 25px;
+  position: relative;
+}
+
+.section-text ul li::before {
+  content: "✔";
+  color: #f8b400;
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.section-header h3 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #f8b400;
+}
+
+.section-header p {
+  font-size: 18px;
+  margin-bottom: 30px;
+  color: #bbb;
+  text-align: center;
+}
+
+.section-item {
+  margin-bottom: 20px;
+}
+
+.section-item strong {
+  color: #f8b400;
+}

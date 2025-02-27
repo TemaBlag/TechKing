@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load static %}
-{% comment %} {% load socialaccount %} {% endcomment %}
 
 {% block modal_cart %}
 {% include "includes/cart_button.html" %}
@@ -40,16 +39,10 @@
                 <div class="text-center">
                     <p>Или авторизуйтесь через:</p>
                     <a href="{% url 'user:social:begin' 'google-oauth2' %}?next={{ request.GET.next }}" class="btn btn-dark">
-                    {% comment %} <a href="{% url 'user:google_login' %}" class="btn btn-dark"> {% endcomment %}
-                    {% comment %} <a href="{% provider_login_url 'google' %}?next=/" class="btn btn-dark"> {% endcomment %}
                         <img class="mx-1" src="{% static "deps/icons/google.svg" %}" alt="Catalog Icon" width="16" height="16">
                         Google
                     </a>
-                    <a href="#" class="btn btn-dark">
-                        <img class="mx-1" src="{% static "deps/icons/facebook.svg" %}" alt="Catalog Icon" width="16" height="16">
-                        Facebook
-                    </a>
-                    <a href="#" class="btn btn-dark">
+                    <a href="{% url 'user:social:begin' 'github' %}?next={{ request.GET.next }}" class="btn btn-dark">
                         <img class="mx-1" src="{% static "deps/icons/github.svg" %}" alt="Catalog Icon" width="16" height="16">
                         GitHub
                     </a>

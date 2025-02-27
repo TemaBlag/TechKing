@@ -94,7 +94,6 @@
                 </div>
             </div>
             <!-- Оформленные заказы -->
-            {% comment %} {% cache 60 user_orders user.id %} {% endcomment %}
              <div class="col-md-12">
                  <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
                      <h3 class="text-center mb-4">Мои заказы</h3>
@@ -141,7 +140,6 @@
                     </div>
                 </div>
             </div>
-            {% comment %} {% endcache %} {% endcomment %}
     </div>
 </div>
 {% endblock  %}

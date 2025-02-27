@@ -1,4 +1,3 @@
-from statistics import quantiles
 from django.db import models
 from goods.models import Products
 
@@ -31,7 +30,9 @@ class Order(models.Model):
         ordering = ("id",)
 
     def __str__(self) -> str:
-        return f"Заказ №{self.pk} | Покупатель {self.user.first_name} {self.user.last_name}"
+        if self.user:
+            return f"Заказ №{self.pk} | Покупатель {self.user.first_name} {self.user.last_name}"
+        return "anonymous user"
     
 class OrderItem(models.Model):
     order = models.ForeignKey(to=Order, on_delete=models.CASCADE, verbose_name="Заказ")

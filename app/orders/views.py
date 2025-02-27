@@ -42,7 +42,6 @@ class CreateOrderView(LoginRequiredMixin, FormView):
                 cart_items = Cart.objects.filter(user=user)
 
                 if cart_items.exists():
-                    # Создать заказ
                     order = Order.objects.create(
                         user=user,
                         phone_number=form.cleaned_data["phone_number"],
@@ -50,7 +49,6 @@ class CreateOrderView(LoginRequiredMixin, FormView):
                         delivery_address=form.cleaned_data["delivery_address"],
                         payment_on_get=form.cleaned_data["payment_on_get"],
                     )
-                    # Создать заказанные товары
                     for cart_item in cart_items:
                         product = cart_item.product
                         name = cart_item.product.name
@@ -74,7 +72,6 @@ class CreateOrderView(LoginRequiredMixin, FormView):
                         product.quantity -= quantity
                         product.save()
 
-                # Очистить корзину пользователя после сделанного заказа
                 cart_items.delete()
 
                 messages.success(self.request, "Заказ оформлен!")
@@ -94,6 +91,6 @@ class CreateOrderView(LoginRequiredMixin, FormView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = "Home - `Оформление заказа"
+        context['title'] = "TechKing - `Оформление заказа"
         context['order'] = True
         return context

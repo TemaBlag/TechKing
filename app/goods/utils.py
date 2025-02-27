@@ -49,15 +49,3 @@ def q_search(query):
     )
 
     return result
-
-    # search by myself
-
-    # keywords = [word for word in query.split() if len(word) > 2]
-
-    # q_objects = Q()
-
-    # for token in keywords:
-    #     q_objects |= Q(description__iregex=token)
-    #     q_objects |= Q(name__iregex=token)
-
-    # return Products.objects.filter(q_objects)

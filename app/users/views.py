@@ -1,9 +1,7 @@
 from django.contrib import auth, messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.cache import cache
 from django.contrib.auth.views import LogoutView
 from django.db.models import Prefetch
-from allauth.socialaccount.providers import registry
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
@@ -16,23 +14,10 @@ from orders.models import Order, OrderItem
 from carts.models import Cart
 from users.forms import ProfileForm, UserLoginForm, UserRegistrationForm
 
-# rom allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
-
-# class GoogleLoginView(TemplateView):
-#     def get(self, request, *args, **kwargs):
-#         # google_adapter = GoogleOAuth2Adapter(request)
-#         # login_url = google_adapter.get_authorization_url(request)
-#         google_provider = registry.by_id('google')
-#         adapter = google_provider.get_adapter()
-        
-#         # Retrieve the Google OAuth2 URL
-#         login_url = adapter.get_auth_url(request)
-#         return redirect(login_url)
 
 class UserLoginView(LoginView):
     template_name = 'users/login.html'
     form_class = UserLoginForm
-    # success_url = reverse_lazy('main:index')
 
     def get_success_url(self):
         redirect_page = self.request.POST.get('next', None)
@@ -47,19 +32,16 @@ class UserLoginView(LoginView):
         if user:
             auth.login(self.request, user)
             if session_key:
-                # delete old authorized user carts
                 forgot_carts = Cart.objects.filter(user=user)
                 if forgot_carts.exists():
                     forgot_carts.delete()
-                # add new authorized usser carts from aninimous session
                 Cart.objects.filter(session_key=session_key).update(user=user)
-
                 messages.success(self.request, f"{user.username}, Вы вошли в аккаунт")
                 return HttpResponseRedirect(self.get_success_url())
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Home - Авторизация'
+        context['title'] = 'TechKing - Авторизация'
         next_url = self.request.POST.get('next', self.request.GET.get('next', ''))
         if next_url:
             context['next'] = next_url
@@ -69,7 +51,6 @@ class UserLoginView(LoginView):
 class UserRegistrationView(CreateView):
     template_name = 'users/registration.html'
     form_class = UserRegistrationForm
-    # success_url = reverse_lazy('user:profile')
 
     def get_success_url(self):
         redirect_page = self.request.POST.get('next', None)
@@ -94,7 +75,7 @@ class UserRegistrationView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title']= 'Home - Регистрация'
+        context['title']= 'TechKing - Регистрация'
         next_url = self.request.POST.get('next', self.request.GET.get('next', ''))
         if next_url:
             context['next'] = next_url  
@@ -114,7 +95,7 @@ class UserProfileView(LoginRequiredMixin, CacheMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Home - Кабинет'
+        context['title'] = 'TechKing - Кабинет'
 
         orders= Order.objects.filter(user=self.request.user).prefetch_related(
             Prefetch(
@@ -123,7 +104,7 @@ class UserProfileView(LoginRequiredMixin, CacheMixin, UpdateView):
             )
         ).order_by("-id")
 
-        context['orders'] = self.set_get_cache(orders, f"user_{self.request.user.id}_orders", 60 * 2)
+        context['orders'] = self.set_get_cache(orders, f"user_{self.request.user.id}_orders", 60)
 
         return context
     
@@ -136,7 +117,7 @@ class UserCartView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Home - Корзина'
+        context['title'] = 'TechKing - Корзина'
         return context
 
 
